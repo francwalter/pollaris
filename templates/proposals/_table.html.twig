@@ -3,6 +3,7 @@
  # Copyright 2024-2026 Marien Fressinaud
  # SPDX-License-Identifier: AGPL-3.0-or-later
  #}
+{# fcw: 2026-03-10: ToDo: "Dienst", "Dienste", "Voll" usw noch lokalisieren #}
 
 {% set preferredChoices = poll.preferredChoices %}
 {% set displayMode = poll.type %}
@@ -25,12 +26,33 @@
                 <tr>
                     <td class="proposals-table__sticky-cell"></td>
 
+                    {# fcw: 2026-03-10: Sortierungsfilter #}
+                    {# fcw: 2026-03-10: Sortierungsfilter, nach der verkehrt herum angelegten Sedrun Umfrage einbauen #}
+                    {# {% for proposal in (proposals|default([])) | sort((a, b) => a.id <=> b.id) %} #}
                     {% for proposal in proposals %}
                         <th
                             {% if loop.first %}data-scrollbox-target="leftObserver"{% endif %}
                             {% if loop.last %}data-scrollbox-target="rightObserver"{% endif %}
                         >
                             <span class="proposal__label">{{ proposal.label }}</span>
+
+                            {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                            {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
+                            {# NEU: Platzanzeige #}
+                            {% if proposal.maxVotes %}
+                                {% set jaStimmen = proposal.countAnswers('yes') %}
+                                {% set freiePlaetze = proposal.maxVotes - jaStimmen %}
+                                <div style="font-size: 0.75rem; font-weight: normal; margin-top: 5px;">
+                                    {% if freiePlaetze <= 0 %}
+                                        <b style="color: #d9534f;">Ausgebucht</b>
+                                    {% elseif freiePlaetze == 1 %}
+                                        <span style="color: #5cb85c;">1 Dienst frei</span>
+                                    {% else %}
+                                        <span style="color: #5cb85c;">{{ freiePlaetze }} Dienste frei</span>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
                         </th>
                     {% endfor %}
                 </tr>
@@ -41,8 +63,10 @@
                     {% for dateAndProposals in datesAndProposals %}
                         {% set date = dateAndProposals[0] %}
                         {% set dateProposals = dateAndProposals[1] %}
-
+                        {# fcw: 2026-03-10: Sortierungsfilter, nach der verkehrt herum angelegten Sedrun Umfrage einbauen #}
+                        {# {% for proposal in (dateProposals|default([])) | sort((a, b) => a.id <=> b.id) %} #}
                         {% for proposal in dateProposals %}
+
                             <th
                                 {% if loop.parent.loop.first and loop.first %}data-scrollbox-target="leftObserver"{% endif %}
                                 {% if loop.parent.loop.last and loop.last %}data-scrollbox-target="rightObserver"{% endif %}
@@ -51,6 +75,21 @@
                                 <span class="proposal__day-month">{{ date.value | dateTrans('d') }}</span>
                                 <span class="proposal__month">{{ date.value | dateTrans('MMM y') }}</span>
                                 <span class="proposal__label">{{ proposal.label }}</span>
+
+                                {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                                {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
+                                {# NEU: Platzanzeige #}
+                                {% if proposal.maxVotes %}
+                                    {% set jaStimmen = proposal.countAnswers('yes') %}
+                                    {% set freiePlaetze = proposal.maxVotes - jaStimmen %}
+                                    <div style="font-size: 0.75rem; font-weight: normal; margin-top: 5px;">
+                                        {% if freiePlaetze <= 0 %}
+                                            <b style="color: #d9534f;">Voll</b>
+                                        {% else %}
+                                            <span style="color: #5cb85c;">{{ freiePlaetze }} frei</span>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
                             </th>
                         {% endfor %}
                     {% endfor %}
@@ -129,7 +168,8 @@
 
                         <td class="text--center{% if isPreferred %} text--success text--bold{% endif %}">
                             {% if isPreferred %}
-                                {{ icon('star') }}
+                            {# fcw: 2026-03-10: hier wird der beste Vorschlag mit einem Sternchen versehen, braucht man nicht #}
+                                {# {{ icon('star') }} #}
                             {% endif %}
 
                             {% if countYes > 0 %}

@@ -292,18 +292,14 @@
                 {{ form_start(voteForm, { attr: { class: 'flow' } }) }}
                     {{ form_errors(voteForm) }}
 
-					{# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
-					{# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
-					{# div hidden ersetzt, Original in show.html.twig.orig #}
-					<div hidden>
-					    {# Wir sortieren die proposals nach ID aufsteigend #}
-					    {% for proposal in proposals | sort((a, b) => a.id <=> b.id) %}
-					        <div data-poll-view-target="voteForm" data-proposal="{{ proposal.id }}">
-					            {% set answerForm = voteForm | getAnswerFormForProposal(proposal) %}
-					            {{ form_row(answerForm) }}
-					        </div>
-					    {% endfor %}
-					</div>
+                    <div hidden>
+                        {% for proposal in proposals %}
+                            <div data-poll-view-target="voteForm" data-proposal="{{ proposal.id }}">
+                                {% set answerForm = voteForm | getAnswerFormForProposal(proposal) %}
+                                {{ form_row(answerForm) }}
+                            </div>
+                        {% endfor %}
+                    </div>
 
                     <div class="wrapper wrapper--small wrapper--center" data-poll-view-target="listView">
                         {{ include('proposals/_list.html.twig') }}
@@ -314,7 +310,7 @@
                     </div>
 
                     <div class="wrapper wrapper--small wrapper--center flow no-print">
-                        <div class="panel panel--primary panel--rounded flow show_author">
+                        <div class="panel panel--primary panel--rounded flow">
                             {{ form_row(voteForm.authorName) }}
 
                             {% if voteForm.password is defined %}
@@ -358,7 +354,7 @@
                         {{ 'polls.show.results.title' | trans(count: preferredChoices|length) }}
                     </h2>
 
-                    <div class="panel panel--primary panel--rounded flow show_result">
+                    <div class="panel panel--primary panel--rounded flow">
                         <p>
                             {{ 'polls.show.results.info' | trans({
                                 countChoices: preferredChoices|length,
