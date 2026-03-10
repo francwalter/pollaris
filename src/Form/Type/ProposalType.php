@@ -1,5 +1,7 @@
 <?php
-
+// fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f
+// ew6: Pollaris: Individuelle Terminlimits hinzufügen
+//
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -17,14 +19,26 @@ class ProposalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('label', Type\TextType::class, [
-            'trim' => true,
-            'empty_data' => '',
-            'label' => new TranslatableMessage('forms.proposal_type.label.label_pattern'),
-            'attr' => [
-                'maxlength' => Entity\Proposal::MAX_LABEL_LENGTH,
-            ],
-        ]);
+        $builder
+            ->add('label', Type\TextType::class, [
+                'trim' => true,
+                'empty_data' => '',
+                'label' => new TranslatableMessage('forms.proposal_type.label.label_pattern'),
+                'attr' => [
+                    'maxlength' => Entity\Proposal::MAX_LABEL_LENGTH,
+                ],
+            ])
+            // Das neue Feld für das individuelle Limit pro Termin:
+            ->add('maxVotes', Type\IntegerType::class, [
+                'required' => false,
+                'label' => 'Max. Teilnehmer', // Oder eine entsprechende TranslatableMessage
+                'attr' => [
+                    'min' => 1,
+                    'placeholder' => 'Unbegrenzt',
+                    'style' => 'max-width: 150px;' // Macht das Feld schmaler
+                ],
+                'help' => 'Leer lassen, um das globale Limit der Umfrage zu nutzen.',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

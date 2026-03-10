@@ -29,6 +29,16 @@
                             type="text"
                             data-slots-applier-target="element"
                         />
+                        {# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                        {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
+                        {# NEU: Manuelles Input für das Limit #}
+                        <input
+                            type="number"
+                            min="1"
+                            placeholder="Max"
+                            style="width: 80px;"
+                            data-slots-applier-target="maxVotes"
+                        />
                     </div>
                 </div>
 
@@ -53,6 +63,16 @@
                                 id="slots-applier_element___name___label"
                                 type="text"
                                 data-slots-applier-target="element"
+                            />
+                            
+                            {# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                            {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
+                            {# NEU: Das Limit-Feld im Prototyp des Modals #}
+                            <input
+                                type="number"
+                                placeholder="Limit"
+                                style="width: 80px;"
+                                data-slots-applier-target="maxVotes"
                             />
 
                             <button

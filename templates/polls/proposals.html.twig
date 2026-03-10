@@ -30,6 +30,9 @@
                     {% for proposal in form.proposals %}
                         <div class="panel panel--rounded panel--primary flow" data-item="element">
                             {{ form_row(proposal.label) }}
+                            {# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                            {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
+                            {{ form_row(proposal.maxVotes) }}
 
                             {% if not loop.first %}
                                 <button
@@ -47,7 +50,10 @@
 
                 <template data-collection-target="prototype">
                     <div class="panel panel--rounded panel--primary flow" data-item="element">
-                        {{ form_row(form.proposals.vars.prototype) }}
+                        {{ form_row(form.proposals.vars.prototype.label) }}
+                        {# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                        {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
+                        {{ form_row(form.proposals.vars.prototype.maxVotes) }}
 
                         <button
                             type="button"

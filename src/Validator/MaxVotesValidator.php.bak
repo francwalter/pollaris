@@ -1,10 +1,13 @@
 <?php
-// fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f
-// ew6: Pollaris: Individuelle Terminlimits hinzufügen
+
+// This file is part of Pollaris.
+// Copyright 2024-2026 Marien Fressinaud
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 namespace App\Validator;
 
 use App\Entity;
+use Doctrine\Common\Collections;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
@@ -22,9 +25,14 @@ class MaxVotesValidator extends ConstraintValidator
         }
 
         $poll = $vote->getPoll();
-        $globalMaxVotes = $poll->getMaxVotes();
+        $maxVotes = $poll->getMaxVotes();
 
-        // Vorab-Check der Stimmen in der Datenbank für alle Proposals
+        if ($maxVotes === null || $maxVotes <= 0) {
+            return;
+        }
+
+        // Count the actual "yes" answers per proposal, excluding the answers
+        // of the actual vote.
         $countAnswersPerProposals = [];
         foreach ($poll->getProposals() as $proposal) {
             $excludeVote = $vote->getId() !== null ? $vote : null;
@@ -32,33 +40,32 @@ class MaxVotesValidator extends ConstraintValidator
             $countAnswersPerProposals[$proposal->getId()] = $countYes;
         }
 
+        // Check for each answers of the current vote if they are allowed.
         foreach ($vote->getAnswers() as $index => $answer) {
-            if ($answer->getValue() !== 'yes') {
+            $value = $answer->getValue();
+
+            if ($value !== 'yes') {
                 continue;
             }
 
-            $proposal = $answer->getProposal();
-            if ($proposal === null) {
+            $proposalId = $answer->getProposal()?->getId();
+
+            if ($proposalId === null) {
                 continue;
             }
 
-            // PRIORITÄT: 1. Individuelles Limit vom Termin, 2. Globales Limit der Umfrage
-            $limit = $proposal->getMaxVotes() ?? $globalMaxVotes;
+            $actualCount = $countAnswersPerProposals[$proposalId] ?? 0;
 
-            // Wenn gar kein Limit gesetzt ist (null oder <= 0), überspringen
-            if ($limit === null || $limit <= 0) {
+            if ($actualCount + 1 <= $maxVotes) {
                 continue;
             }
 
-            $actualCount = $countAnswersPerProposals[$proposal->getId()] ?? 0;
-
-            if ($actualCount + 1 > $limit) {
-                $this->context
-                    ->buildViolation($constraint->message)
-                    ->setParameter('{{ max }}', (string) $limit)
-                    ->atPath("answers[{$index}].value")
-                    ->addViolation();
-            }
+            $this
+                ->context
+                ->buildViolation($constraint->message)
+                ->setParameter('{{ max }}', (string) $maxVotes)
+                ->atPath("answers[{$index}].value")
+                ->addViolation();
         }
     }
 }
