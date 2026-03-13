@@ -44,7 +44,7 @@
                                 {% set freiePlaetze = proposal.maxVotes - jaStimmen %}
                                 <div style="font-size: 0.75rem; font-weight: normal; margin-top: 5px;">
                                     {% if freiePlaetze <= 0 %}
-                                        <b style="color: #d9534f;">Ausgebucht</b>
+                                        <b style="color: #d9534f;">Voll</b>
                                     {% elseif freiePlaetze == 1 %}
                                         <span style="color: #5cb85c;">1 Dienst frei</span>
                                     {% else %}
@@ -55,6 +55,11 @@
 
                         </th>
                     {% endfor %}
+                    {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                    {# ew6: Pollaris: Einträge des Benutzers zählen #}
+                    <th class="text--center user-total-yes" style="width: 50px;">
+                        {{ "Sum" }} {# Oder ein Text wie "Summe" #}
+                    </th>
                 </tr>
             {% elseif displayMode == 'date' %}
                 <tr>
@@ -111,6 +116,10 @@
                 </tr>
             {% endif %}
 
+            {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+            {# ew6: Pollaris: Einträge aller Benutzer zählen #}
+            {% set totalYes = 0 %}
+
             {% for vote in votes %}
                 <tr>
                     <th class="proposals-table__sticky-cell">
@@ -118,12 +127,17 @@
                             {{ vote.authorName }}
                         </div>
                     </th>
-
+                    {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                    {# ew6: Pollaris: Einträge des Benutzers zählen #}
+                    {% set userTotalYes = 0 %}
                     {% for proposal in proposals %}
                         {% set answer = vote.answerForProposal(proposal) %}
 
                         <td class="text--center">
                             {% if answer.value == 'yes' %}
+                                {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                                {# ew6: Pollaris: Einträge des Benutzers zählen #}
+                                {% set userTotalYes = userTotalYes + 1 %}
                                 <span class="vote vote--yes">
                                     {{ icon('square-check') }}
 
@@ -150,9 +164,15 @@
                             {% endif %}
                         </td>
                     {% endfor %}
-                </tr>
+                    {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+                    {# ew6: Pollaris: Einträge des Benutzers zählen #}
+                    {# 2. Anzeige: Wie oft hat sich dieser User eingetragen? #}
+                    <td class="text--center text--bold user-total-yes">
+                    {{ userTotalYes }}
+                    </td>
+                    {% set totalYes = totalYes + userTotalYes %}
             {% endfor %}
-
+                </tr>
             {% if canViewResults(poll) and votes is not empty %}
                 <tr>
                     <th class="proposals-table__sticky-cell">
@@ -193,6 +213,11 @@
                             {% endif %}
                         </td>
                     {% endfor %}
+{# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+{# ew6: Pollaris: Einträge alle Benutzers zählen #}
+<td class="text--center text--bold total-yes">
+    {{ totalYes }}
+</td>
                 </tr>
             {% endif %}
         </table>
