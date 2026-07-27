@@ -40,15 +40,13 @@
                             {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
                             {# NEU: Platzanzeige #}
                             {% if proposal.maxVotes %}
-                                {% set jaStimmen = proposal.countAnswers('yes') %}
-                                {% set freiePlaetze = proposal.maxVotes - jaStimmen %}
+                                {% set yesCount = proposal.countAnswers('yes') %}
+                                {% set freeSlots = proposal.maxVotes - yesCount %}
                                 <div style="font-size: 0.75rem; font-weight: normal; margin-top: 5px;">
-                                    {% if freiePlaetze <= 0 %}
-                                        <b style="color: #d9534f;">Voll</b>
-                                    {% elseif freiePlaetze == 1 %}
-                                        <span style="color: #5cb85c;">1 Dienst frei</span>
+                                    {% if freeSlots <= 0 %}
+                                        <b style="color: #d9534f;">{{ 'polls.proposals.max_votes.full'|trans }}</b>
                                     {% else %}
-                                        <span style="color: #5cb85c;">{{ freiePlaetze }} Dienste frei</span>
+                                        <span style="color: #5cb85c;">{{ 'polls.proposals.max_votes.slots_free'|trans({count: freeSlots}) }}</span>
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -58,7 +56,7 @@
                     {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
                     {# ew6: Pollaris: Einträge des Benutzers zählen #}
                     <th class="text--center user-total-yes" style="width: 50px;">
-                        {{ "Sum" }} {# Oder ein Text wie "Summe" #}
+                        {{ 'polls.votes.sum'|trans }}
                     </th>
                 </tr>
             {% elseif displayMode == 'date' %}
@@ -85,13 +83,13 @@
                                 {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
                                 {# NEU: Platzanzeige #}
                                 {% if proposal.maxVotes %}
-                                    {% set jaStimmen = proposal.countAnswers('yes') %}
-                                    {% set freiePlaetze = proposal.maxVotes - jaStimmen %}
+                                    {% set yesCount = proposal.countAnswers('yes') %}
+                                    {% set freeSlots = proposal.maxVotes - yesCount %}
                                     <div style="font-size: 0.75rem; font-weight: normal; margin-top: 5px;">
-                                        {% if freiePlaetze <= 0 %}
-                                            <b style="color: #d9534f;">Voll</b>
+                                        {% if freeSlots <= 0 %}
+                                            <b style="color: #d9534f;">{{ 'polls.proposals.max_votes.full'|trans }}</b>
                                         {% else %}
-                                            <span style="color: #5cb85c;">{{ freiePlaetze }} frei</span>
+                                            <span style="color: #5cb85c;">{{ 'polls.proposals.max_votes.slots_free'|trans({count: freeSlots}) }}</span>
                                         {% endif %}
                                     </div>
                                 {% endif %}
