@@ -40,13 +40,13 @@
                             {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
                             {# NEU: Platzanzeige #}
                             {% if proposal.maxVotes %}
-                                {% set jaStimmen = proposal.countAnswers('yes') %}
-                                {% set freiePlaetze = proposal.maxVotes - jaStimmen %}
+                                {% set yesCount = proposal.countAnswers('yes') %}
+                                {% set freeSlots = proposal.maxVotes - yesCount %}
                                 <div style="font-size: 0.75rem; font-weight: normal; margin-top: 5px;">
-                                    {% if freiePlaetze <= 0 %}
+                                    {% if freeSlots <= 0 %}
                                         <b style="color: #d9534f;">{{ 'polls.proposals.max_votes.full'|trans }}</b>
                                     {% else %}
-                                        <span style="color: #5cb85c;">{{ 'polls.proposals.max_votes.slots_free'|trans({count: freiePlaetze}) }}</span>
+                                        <span style="color: #5cb85c;">{{ 'polls.proposals.max_votes.slots_free'|trans({count: freeSlots}) }}</span>
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -83,13 +83,13 @@
                                 {# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
                                 {# NEU: Platzanzeige #}
                                 {% if proposal.maxVotes %}
-                                    {% set jaStimmen = proposal.countAnswers('yes') %}
-                                    {% set freiePlaetze = proposal.maxVotes - jaStimmen %}
+                                    {% set yesCount = proposal.countAnswers('yes') %}
+                                    {% set freeSlots = proposal.maxVotes - yesCount %}
                                     <div style="font-size: 0.75rem; font-weight: normal; margin-top: 5px;">
-                                        {% if freiePlaetze <= 0 %}
+                                        {% if freeSlots <= 0 %}
                                             <b style="color: #d9534f;">{{ 'polls.proposals.max_votes.full'|trans }}</b>
                                         {% else %}
-                                            <span style="color: #5cb85c;">{{ 'polls.proposals.max_votes.slots_free'|trans({count: freiePlaetze}) }}</span>
+                                            <span style="color: #5cb85c;">{{ 'polls.proposals.max_votes.slots_free'|trans({count: freeSlots}) }}</span>
                                         {% endif %}
                                     </div>
                                 {% endif %}
