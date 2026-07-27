@@ -305,3 +305,12 @@ polls.votes.yes: Òc
 polls.votes.yes.count: '{count} Òc'
 polls.votes.yours: Vòstre vòte
 preferences.edit.title: Vòstras preferéncias
+forms.proposal_type.max_votes.label: 'Nb. max. de participants (facultatiu)'
+forms.proposal_type.max_votes.placeholder: Illimitat
+forms.proposal_type.max_votes.help: 'Laissar vòid per utilizar la limitacion globala del sondatge.'
+forms.proposal_type.max_votes.slot_title: 'Nombre maximum de vòts autorizats per aqueste crenèl'
+polls.proposals.max_votes.full: Complet
+polls.proposals.max_votes.all_taken: 'Totes los crenèls son preses'
+polls.proposals.max_votes.slots_remaining: '{count, plural, one {1 crenèl restant} other {# crenèls restants}}'
+polls.proposals.max_votes.slots_free: '{count, plural, one {1 crenèl liure} other {# crenèls liures}}'
+polls.proposals.max_votes.availability: 'Disponibilitat :'

@@ -246,3 +246,12 @@ polls.votes.yes: Oui
 polls.votes.yes.count: "{count}\_Oui"
 polls.votes.yours: 'Votre vote'
 preferences.edit.title: 'Vos préférences'
+forms.proposal_type.max_votes.label: 'Nb. max. de participants (facultatif)'
+forms.proposal_type.max_votes.placeholder: Illimité
+forms.proposal_type.max_votes.help: 'Laisser vide pour utiliser la limite globale du sondage.'
+forms.proposal_type.max_votes.slot_title: 'Nombre maximum de votes autorisés pour ce créneau'
+polls.proposals.max_votes.full: Complet
+polls.proposals.max_votes.all_taken: 'Tous les créneaux pris'
+polls.proposals.max_votes.slots_remaining: '{count, plural, one {1 créneau restant} other {# créneaux restants}}'
+polls.proposals.max_votes.slots_free: '{count, plural, one {1 créneau libre} other {# créneaux libres}}'
+polls.proposals.max_votes.availability: 'Disponibilité :'
