@@ -104,9 +104,15 @@ export default class extends Controller {
     }
 
     refreshLabels () {
-        const labels = this.containerTarget.querySelectorAll('label');
-        labels.forEach((label, index) => {
-            // Update the labels with the correct number.
+        const items = this.containerTarget.querySelectorAll('[data-item="element"]');
+        items.forEach((item, index) => {
+            // Update only the first label of each item with the correct number.
+            const label = item.querySelector('label');
+
+            if (!label) {
+                return;
+            }
+
             let labelPattern = label.dataset.labelPattern;
 
             if (!labelPattern) {
