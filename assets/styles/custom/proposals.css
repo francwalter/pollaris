@@ -150,6 +150,19 @@
     text-align: right;
 }
 
+.proposals-table thead th,
+.proposals-table thead td {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    background-color: var(--color-grey1);
+}
+
+.proposals-table thead .proposals-table__sticky-cell {
+    z-index: 3;
+}
+
 /* Make sure that the scrollbox shadow doesn't pass over the authors column. */
 .scrollbox:has(> .proposals-table-container)::before {
     left: 152px;
