@@ -105,6 +105,7 @@ forms.preferences.color_scheme.light: Clar
 forms.preferences.locale.label: Lenga
 forms.previous: Precedent
 forms.proposal_type.label.label_pattern: Proposicion __number__
+forms.proposal_type.max_members.label: Max. participant·as
 forms.search_polls_form.email.help: Vos mandarem los ligams dels sondatges 
   qu'avètz creats.
 forms.search_polls_form.email.label: Vòstra adreça electronica

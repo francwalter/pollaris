@@ -105,6 +105,7 @@ forms.preferences.color_scheme.light: Világos
 forms.preferences.locale.label: Nyelv
 forms.previous: Előző
 forms.proposal_type.label.label_pattern: Javaslat __szám__
+forms.proposal_type.max_members.label: Max. résztvevők
 forms.search_polls_form.email.help: Elküldjük Önnek az Ön által létrehozott 
   szavazások hivatkozásait.
 forms.search_polls_form.email.label: Az Ön e-mail címe
