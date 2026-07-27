@@ -31,13 +31,13 @@ class ProposalType extends AbstractType
             // Das neue Feld für das individuelle Limit pro Termin:
             ->add('maxVotes', Type\IntegerType::class, [
                 'required' => false,
-                'label' => 'Max. Teilnehmer', // Oder eine entsprechende TranslatableMessage
+                'label' => new TranslatableMessage('forms.proposal_type.max_votes.label'),
                 'attr' => [
                     'min' => 1,
-                    'placeholder' => 'Unbegrenzt',
-                    'style' => 'max-width: 150px;' // Macht das Feld schmaler
+                    'placeholder' => new TranslatableMessage('forms.proposal_type.max_votes.placeholder'),
+                    'style' => 'max-width: 150px;'
                 ],
-                'help' => 'Leer lassen, um das globale Limit der Umfrage zu nutzen.',
+                'help' => new TranslatableMessage('forms.proposal_type.max_votes.help'),
             ]);
     }
 

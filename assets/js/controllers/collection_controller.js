@@ -105,7 +105,8 @@ export default class extends Controller {
 
     refreshLabels () {
         const labels = this.containerTarget.querySelectorAll('label');
-        labels.forEach((label, index) => {
+        let counter = 0;
+        labels.forEach((label) => {
             // Update the labels with the correct number.
             let labelPattern = label.dataset.labelPattern;
 
@@ -116,7 +117,10 @@ export default class extends Controller {
                 label.dataset.labelPattern = labelPattern;
             }
 
-            label.innerHTML = labelPattern.replace(/__number__/, index + 1);
+            if (labelPattern.includes('__number__')) {
+                counter++;
+                label.innerHTML = labelPattern.replace(/__number__/, counter);
+            }
         });
     }
 }

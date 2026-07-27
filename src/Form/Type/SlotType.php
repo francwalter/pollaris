@@ -25,6 +25,17 @@ class SlotType extends AbstractType
                 'maxlength' => Entity\Proposal::MAX_LABEL_LENGTH,
             ],
         ]);
+
+        $builder->add('maxVotes', Type\IntegerType::class, [
+            'required' => false,
+            'label' => new TranslatableMessage('forms.proposal_type.max_votes.label'),
+            'attr' => [
+                'min' => 1,
+                'placeholder' => new TranslatableMessage('forms.proposal_type.max_votes.placeholder'),
+                'style' => 'width: 80px;',
+            ],
+            'help' => new TranslatableMessage('forms.proposal_type.max_votes.help'),
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

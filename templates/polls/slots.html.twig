@@ -63,9 +63,9 @@
                                         {# NEU: Das Limit-Feld direkt neben oder unter dem Slot #}
                                         {{ form_widget(proposal.maxVotes, {
                                             'attr': {
-                                                'placeholder': 'Limit',
+                                                'placeholder': 'forms.proposal_type.max_votes.placeholder'|trans,
                                                 'style': 'width: 80px;',
-                                                'title': 'Maximal erlaubte Stimmen für diesen Slot'
+                                                'title': 'forms.proposal_type.max_votes.slot_title'|trans
                                             }
                                          }) }}
 
@@ -112,7 +112,7 @@
             {% if date.proposals.vars.prototype.maxVotes is defined %}
                 {{ form_widget(date.proposals.vars.prototype.maxVotes, {
                     'attr': {
-                        'placeholder': 'Limit',
+                        'placeholder': 'forms.proposal_type.max_votes.placeholder'|trans,
                         'style': 'width: 80px;'
                     }
                 }) }}

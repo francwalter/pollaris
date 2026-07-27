@@ -309,3 +309,12 @@ polls.votes.yes: Sì
 polls.votes.yes.count: '{count} Sì'
 polls.votes.yours: Il tuo voto
 preferences.edit.title: Le tue preferenze
+forms.proposal_type.max_votes.label: 'N. max. partecipanti (opzionale)'
+forms.proposal_type.max_votes.placeholder: Illimitato
+forms.proposal_type.max_votes.help: 'Lasciare vuoto per utilizzare il limite globale del sondaggio.'
+forms.proposal_type.max_votes.slot_title: 'Numero massimo di voti consentiti per questo slot'
+polls.proposals.max_votes.full: 'Al completo'
+polls.proposals.max_votes.all_taken: 'Tutti i posti occupati'
+polls.proposals.max_votes.slots_remaining: '{count, plural, one {1 posto rimanente} other {# posti rimanenti}}'
+polls.proposals.max_votes.slots_free: '{count, plural, one {1 posto libero} other {# posti liberi}}'
+polls.proposals.max_votes.availability: 'Disponibilità:'
