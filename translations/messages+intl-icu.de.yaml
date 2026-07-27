@@ -324,6 +324,6 @@ forms.proposal_type.max_votes.help: 'Leer lassen, um das globale Limit der Umfra
 forms.proposal_type.max_votes.slot_title: 'Maximal erlaubte Stimmen für diesen Termin'
 polls.proposals.max_votes.full: Voll
 polls.proposals.max_votes.all_taken: 'Alle Plätze vergeben'
-polls.proposals.max_votes.slots_remaining: '{count, plural, one {1 Platz frei} other {# Plätze frei}}'
+polls.proposals.max_votes.slots_remaining: '{count, plural, one {Noch 1 Platz verfügbar} other {Noch # Plätze verfügbar}}'
 polls.proposals.max_votes.slots_free: '{count, plural, one {1 Platz frei} other {# Plätze frei}}'
 polls.proposals.max_votes.availability: 'Verfügbarkeit:'
