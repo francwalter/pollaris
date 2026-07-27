@@ -292,6 +292,16 @@
                 {{ form_start(voteForm, { attr: { class: 'flow' } }) }}
                     {{ form_errors(voteForm) }}
 
+                    <div class="wrapper wrapper--small wrapper--center flow no-print">
+                        <div class="panel panel--primary panel--rounded flow show_author">
+                            {{ form_row(voteForm.authorName) }}
+
+                            {% if voteForm.password is defined %}
+                                {{ form_row(voteForm.password) }}
+                            {% endif %}
+                        </div>
+                    </div>
+
 					{# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
 					{# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
 					{# div hidden ersetzt, Original in show.html.twig.orig #}
@@ -314,14 +324,6 @@
                     </div>
 
                     <div class="wrapper wrapper--small wrapper--center flow no-print">
-                        <div class="panel panel--primary panel--rounded flow show_author">
-                            {{ form_row(voteForm.authorName) }}
-
-                            {% if voteForm.password is defined %}
-                                {{ form_row(voteForm.password) }}
-                            {% endif %}
-                        </div>
-
                         <div class="cols cols--always cols--gap cols--center">
                             {% if onEditPage %}
                                 <a
