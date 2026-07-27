@@ -25,6 +25,11 @@ class ProposalType extends AbstractType
                 'maxlength' => Entity\Proposal::MAX_LABEL_LENGTH,
             ],
         ]);
+
+        $builder->add('maxMembers', Type\IntegerType::class, [
+            'label' => new TranslatableMessage('forms.proposal_type.max_members.label'),
+            'required' => false,
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -87,6 +87,7 @@ forms.preferences.color_scheme.light: Clair
 forms.preferences.locale.label: Langue
 forms.previous: Précédent
 forms.proposal_type.label.label_pattern: 'Proposition __number__'
+forms.proposal_type.max_members.label: 'Max. participants'
 forms.search_polls_form.email.help: 'Nous vous enverrons les liens vers les sondages que vous avez créés.'
 forms.search_polls_form.email.label: 'Votre adresse email'
 forms.search_polls_form.submit: Envoyer

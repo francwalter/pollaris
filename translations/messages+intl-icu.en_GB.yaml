@@ -87,6 +87,7 @@ forms.preferences.color_scheme.light: Light
 forms.preferences.locale.label: Language
 forms.previous: Previous
 forms.proposal_type.label.label_pattern: 'Proposal __number__'
+forms.proposal_type.max_members.label: 'Max. members'
 forms.search_polls_form.email.help: 'We will send you the links to the polls that you have created.'
 forms.search_polls_form.email.label: 'Your email address'
 forms.search_polls_form.submit: Send
