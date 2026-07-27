@@ -42,6 +42,11 @@
     margin-top: 0;
 }
 
+.poll-view--table .poll > form {
+    display: flex;
+    flex-direction: column;
+}
+
 .poll-view--table .poll-submit-wrapper .poll-submit-wrapper__inputs {
     padding-inline-end: var(--space-medium);
 }
@@ -112,6 +117,7 @@
 }
 
 .poll-view--table .poll-submit-wrapper {
+    order: 1;
     display: grid;
     grid-template-columns: 1fr;
     overflow: hidden;
@@ -209,7 +215,7 @@
 }
 
 .poll-view--list .poll .poll-submit-wrapper {
-    margin-top: var(--space-medium);
+    margin-bottom: var(--space-medium);
     padding: var(--panel-padding);
     border-radius: var(--border-radius);
     background-color: var(--color-primary3);

@@ -302,14 +302,6 @@
                         {% endfor %}
                     </div>
 
-                    <div data-poll-view-target="listView">
-                        {{ include('proposals/_list.html.twig') }}
-                    </div>
-
-                    <div data-poll-view-target="tableView">
-                        {{ include('proposals/_table.html.twig') }}
-                    </div>
-
                     <div class="poll-submit-wrapper no-print">
                         <div class="poll-submit-wrapper__inputs">
                             {{ form_row(voteForm.authorName) }}
@@ -340,6 +332,14 @@
                                 {{ form_row(voteForm.submit) }}
                             </div>
                         </div>
+                    </div>
+
+                    <div data-poll-view-target="listView">
+                        {{ include('proposals/_list.html.twig') }}
+                    </div>
+
+                    <div data-poll-view-target="tableView">
+                        {{ include('proposals/_table.html.twig') }}
                     </div>
                 {{ form_end(voteForm) }}
             {% else %}
