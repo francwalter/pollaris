@@ -2,6 +2,15 @@
 framework:
     secret: '%env(APP_SECRET)%'
 
+    # fcw: 2026-02-24: Gemini: https://gemini.google.com/app/e646a655586cfeac
+    # Das hier muss rein:
+    messenger:
+        enabled: true
+    
+    # fcw: 2026-02-26: Gemini: https://gemini.google.com/app/98ff9825149dcec6
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+
     # Note that the session will be started ONLY if you read or write from it.
     session: true
 

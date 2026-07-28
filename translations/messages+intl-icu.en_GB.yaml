@@ -262,3 +262,12 @@ polls.votes.yes: 'Yes'
 polls.votes.yes.count: "{count}\_Yes"
 polls.votes.yours: 'Your vote'
 preferences.edit.title: 'Your preferences'
+forms.proposal_type.max_votes.label: 'Max. members (optional)'
+forms.proposal_type.max_votes.placeholder: Unlimited
+forms.proposal_type.max_votes.help: 'Leave empty to use the global limit of the poll.'
+forms.proposal_type.max_votes.slot_title: 'Maximum allowed votes for this slot'
+polls.proposals.max_votes.full: Full
+polls.proposals.max_votes.all_taken: 'All slots taken'
+polls.proposals.max_votes.slots_remaining: '{count, plural, one {1 slot remaining} other {# slots remaining}}'
+polls.proposals.max_votes.slots_free: '{count, plural, one {1 slot free} other {# slots free}}'
+polls.proposals.max_votes.availability: 'Availability:'

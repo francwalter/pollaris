@@ -44,6 +44,26 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
     )]
     private ?string $label = null;
 
+    // fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f
+    //  ew6: Pollaris: Individuelle Terminlimits hinzufügen
+    #[ORM\Column(nullable: true)]
+    private ?int $maxVotes = null;
+
+    // Und die entsprechenden Methoden am Ende der Klasse:
+
+    public function getMaxVotes(): ?int
+    {
+        return $this->maxVotes;
+    }
+
+    public function setMaxVotes(?int $maxVotes): static
+    {
+        $this->maxVotes = $maxVotes;
+
+        return $this;
+    }
+    /* fcw: 2026-03-08: Ende Gemini-Erweiterung */
+
     /** @var Collections\Collection<int, Answer> */
     #[ORM\OneToMany(
         targetEntity: Answer::class,

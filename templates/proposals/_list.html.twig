@@ -1,14 +1,15 @@
-{#
- # This file is part of Pollaris.
- # Copyright 2024-2026 Marien Fressinaud
- # SPDX-License-Identifier: AGPL-3.0-or-later
- #}
+{# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
+{# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
+{# Optionale Anzeige direkt in der Liste, Datei komplett ersetzt von Gemini, .bak erstellt davor #}
+{# ToDo: "Dienst", "Dienste", "Voll" usw noch lokalisieren #}
 
 {% set preferredChoices = poll.preferredChoices %}
 {% set displayMode = poll.type %}
 
 <div class="flow flow--large">
     {% if displayMode == 'classic' %}
+        {# fcw: 2026-03-10: Sortierungsfilter, nach der verkehrt herum angelegten Sedrun Umfrage einbauen #}
+        {# {% for proposal in proposals | sort((a, b) => a.id <=> b.id) %} #}
         {% for proposal in proposals %}
             <div class="panel panel--primary panel--rounded">
                 {{ include('proposals/_proposal.html.twig', {
@@ -17,11 +18,27 @@
                     voteForm: voteForm,
                     myVote: myVote,
                 }) }}
+                
+                {# Optionale Anzeige direkt in der Liste #}
+                {% if proposal.maxVotes %}
+                    {% set yesCount = proposal.countAnswers('yes') %}
+                    {% set freeSlots = proposal.maxVotes - yesCount %}
+                    <div style="padding: 0 1rem 1rem; margin-top: 1rem; font-size: 0.9em; color: red;">
+                        {% if freeSlots <= 0 %}
+                            <span class="badge badge--danger">{{ 'polls.proposals.max_votes.all_taken'|trans }}</span>
+                        {% else %}
+                            <span class="badge badge--success">{{ 'polls.proposals.max_votes.slots_remaining'|trans({count: freeSlots}) }}</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     {% elseif displayMode == 'date' %}
         {% for dateAndProposals in datesAndProposals %}
             {% set date = dateAndProposals[0] %}
+
+            {# fcw: 2026-03-10: Sortierungsfilter, nach der verkehrt herum angelegten Sedrun Umfrage einbauen #}
+            {# {% set proposals = dateAndProposals[1] | sort((a, b) => a.id <=> b.id) %} #}
             {% set proposals = dateAndProposals[1] %}
 
             <fieldset class="panel panel--primary panel--rounded panel--date flow">
@@ -30,12 +47,27 @@
                 </div>
 
                 {% for proposal in proposals %}
-                    {{ include('proposals/_proposal.html.twig', {
-                        proposal: proposal,
-                        isPreferred: preferredChoices and proposal in preferredChoices,
-                        voteForm: voteForm,
-                        myVote: myVote,
-                    }) }}
+                    <div class="flow">
+                        {{ include('proposals/_proposal.html.twig', {
+                            proposal: proposal,
+                            isPreferred: preferredChoices and proposal in preferredChoices,
+                            voteForm: voteForm,
+                            myVote: myVote,
+                        }) }}
+                        
+                        {% if proposal.maxVotes %}
+                            {% set yesCount = proposal.countAnswers('yes') %}
+                            {% set freeSlots = proposal.maxVotes - yesCount %}
+                            <div style="padding: 0 1rem 1rem; margin-top: -1rem; font-size: 0.85em;">
+                                <b>{{ 'polls.proposals.max_votes.availability'|trans }}</b>
+                                {% if freeSlots <= 0 %}
+                                    <span style="color: #d9534f;">{{ 'polls.proposals.max_votes.full'|trans }}</span>
+                                {% else %}
+                                    <span style="color: #5cb85c;">{{ 'polls.proposals.max_votes.slots_free'|trans({count: freeSlots}) }}</span>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
                 {% endfor %}
             </fieldset>
         {% endfor %}

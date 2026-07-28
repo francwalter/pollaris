@@ -316,4 +316,52 @@ class VotesControllerTest extends WebTestCase
             ]
         );
     }
+
+    public function testTableViewDomOrderForClassicPoll(): void
+    {
+        $client = static::createClient();
+        $poll = Factory\PollFactory::new()->completed()->create();
+        Factory\VoteFactory::createOne(['poll' => $poll]);
+
+        $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}");
+
+        $this->assertResponseIsSuccessful();
+        $content = (string) $client->getResponse()->getContent();
+
+        $posControlsRow = strpos($content, 'proposals-table__author--new');
+        $posAuthorName  = strpos($content, 'id="vote_authorName"');
+        $posVoteEntry   = strpos($content, 'proposals-table__author"');
+
+        $this->assertNotFalse($posControlsRow, 'Controls row (tr.no-print) not found');
+        $this->assertNotFalse($posAuthorName,  '#vote_authorName not found');
+        $this->assertNotFalse($posVoteEntry,   'Vote entry row not found');
+        $this->assertLessThan($posAuthorName, $posControlsRow, 'Controls row must appear before #vote_authorName');
+        $this->assertLessThan($posVoteEntry,  $posAuthorName,  '#vote_authorName must appear before existing vote entry rows');
+    }
+
+    public function testTableViewDomOrderForDatePoll(): void
+    {
+        $client = static::createClient();
+        $poll = Factory\PollFactory::new()
+            ->withDate()
+            ->withAuthor()
+            ->with(['completedAt' => Utils\Time::now()])
+            ->create();
+        $vote = Factory\VoteFactory::createOne(['poll' => $poll]);
+
+        $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit");
+
+        $this->assertResponseIsSuccessful();
+        $content = (string) $client->getResponse()->getContent();
+
+        $posControlsRow = strpos($content, 'proposals-table__author--new');
+        $posAuthorName  = strpos($content, 'id="vote_authorName"');
+        $posVoteEntry   = strpos($content, 'proposals-table__author"');
+
+        $this->assertNotFalse($posControlsRow, 'Controls row (tr.no-print) not found');
+        $this->assertNotFalse($posAuthorName,  '#vote_authorName not found');
+        $this->assertNotFalse($posVoteEntry,   'Vote entry row not found');
+        $this->assertLessThan($posAuthorName, $posControlsRow, 'Controls row must appear before #vote_authorName');
+        $this->assertLessThan($posVoteEntry,  $posAuthorName,  '#vote_authorName must appear before existing vote entry rows');
+    }
 }

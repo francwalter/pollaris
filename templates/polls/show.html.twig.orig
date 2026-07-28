@@ -18,7 +18,7 @@
 {% block body %}
     {% set preferredChoices = poll.preferredChoices %}
 
-    <div id="mainFlow" class="flow flow--larger">
+    <div class="flow flow--larger">
         <div class="wrapper wrapper--small wrapper--center flow flow--larger">
             {% for message in app.flashes('success') %}
                 {% if message == 'vote.created' %}
@@ -161,7 +161,7 @@
                         voteAuthor: myVote.authorName,
                         voteDate: myVote.createdAt | dateIso,
                         voteUrl: url('edit vote', { slug: poll.slug, id: myVote.id, _fragment: 'poll' }),
-                        canEditVote: canEditVotes(poll, ignoreAdminAccess: true),
+                        canEditVote: canEditVote(poll, ignoreAdminAccess: true),
                     } | json_encode }}"
                 ></div>
             {% endif %}
@@ -219,9 +219,9 @@
                              # as the admin can change the edit vote mode. The
                              # value from the localStorage is only used on the
                              # /my page #}
-                            {% if canEditVotes(poll, ignoreAdminAccess: true) %}
+                            {% if canEditVote(poll, ignoreAdminAccess: true) %}
                                 <a href="__vote_url__" class="button button--ghost button--smaller">
-                                    {{ 'base.edit' | trans }}
+                                    {{ 'polls.show.my_votes.edit' | trans }}
                                 </a>
                             {% endif %}
 
@@ -252,16 +252,15 @@
 
         <div
             id="poll"
-            class="poll flow"
+            class="flow"
             data-controller="poll-view"
-            data-action="resize@window->poll-view#setPollWidth"
             aria-live="polite"
         >
-            <div class="poll-toolbar flow">
+            <div class="wrapper wrapper--small wrapper--center flow">
                 <div class="cols cols--always cols--center cols--gap-small">
                     <h2 class="col--extend text--primary">{{ 'polls.show.poll' | trans }}</h2>
 
-                    <div class="poll-toolbar__actions  no-print">
+                    <div class="no-print">
                         <button
                             class="button button--small"
                             data-poll-view-target="listButton"
@@ -290,21 +289,17 @@
             </div>
 
             {% if voteForm %}
-                {{ form_start(voteForm) }}
+                {{ form_start(voteForm, { attr: { class: 'flow' } }) }}
                     {{ form_errors(voteForm) }}
 
-					{# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
-					{# ew6: Pollaris: Individuelle Terminlimits hinzufügen #}
-					{# div hidden ersetzt, Original in show.html.twig.orig #}
-					<div hidden>
-					    {# Wir sortieren die proposals nach ID aufsteigend #}
-					    {% for proposal in proposals | sort((a, b) => a.id <=> b.id) %}
-					        <div data-poll-view-target="voteForm" data-proposal="{{ proposal.id }}">
-					            {% set answerForm = voteForm | getAnswerFormForProposal(proposal) %}
-					            {{ form_row(answerForm) }}
-					        </div>
-					    {% endfor %}
-					</div>
+                    <div hidden>
+                        {% for proposal in proposals %}
+                            <div data-poll-view-target="voteForm" data-proposal="{{ proposal.id }}">
+                                {% set answerForm = voteForm | getAnswerFormForProposal(proposal) %}
+                                {{ form_row(answerForm) }}
+                            </div>
+                        {% endfor %}
+                    </div>
 
                     <div class="wrapper wrapper--small wrapper--center" data-poll-view-target="listView">
                         {{ include('proposals/_list.html.twig') }}
@@ -315,39 +310,32 @@
                     </div>
 
                     <div class="wrapper wrapper--small wrapper--center flow no-print">
+                        <div class="panel panel--primary panel--rounded flow">
+                            {{ form_row(voteForm.authorName) }}
+
+                            {% if voteForm.password is defined %}
+                                {{ form_row(voteForm.password) }}
+                            {% endif %}
+                        </div>
+
                         <div class="cols cols--always cols--gap cols--center">
                             {% if onEditPage %}
-                                <a class="button"
-                                   href="{{ path('poll', { slug: poll.slug }) }}"
+                                <a
+                                    class="button"
+                                    href="{{ path('poll', { slug: poll.slug }) }}"
                                 >
                                     {{ 'forms.cancel' | trans }}
                                 </a>
                             {% endif %}
 
-                            <div class="poll-submit-wrapper__actions__inner">
-                                <p
-                                    id="vote-help"
-                                    data-form-vote-validation-target="voteHelp"
-                                    class="poll-submit-indication"
-                                >
-                                    {{- 'forms.vote_form.required_choice' | trans -}}
-                                </p>
+                            <div class="col--extend"></div>
 
-                                {{ form_row(voteForm.submit) }}
-                            </div>
+                            {{ form_row(voteForm.submit) }}
                         </div>
-                    </div>
-
-                    <div data-poll-view-target="listView">
-                        {{ include('proposals/_list.html.twig') }}
-                    </div>
-
-                    <div data-poll-view-target="tableView">
-                        {{ include('proposals/_table.html.twig') }}
                     </div>
                 {{ form_end(voteForm) }}
             {% else %}
-                <div data-poll-view-target="listView">
+                <div class="wrapper wrapper--small wrapper--center" data-poll-view-target="listView">
                     {{ include('proposals/_list.html.twig') }}
                 </div>
 
@@ -365,8 +353,8 @@
                     <h2 class="text--primary">
                         {{ 'polls.show.results.title' | trans(count: preferredChoices|length) }}
                     </h2>
-                    {# fcw: 2026-03-10: added class "show_result" to use in custom.css  #}
-                    <div class="panel panel--primary panel--rounded flow show_result">
+
+                    <div class="panel panel--primary panel--rounded flow">
                         <p>
                             {{ 'polls.show.results.info' | trans({
                                 countChoices: preferredChoices|length,
