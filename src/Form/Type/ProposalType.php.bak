@@ -13,28 +13,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
 
-class SlotType extends AbstractType
+class ProposalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('label', Type\TextType::class, [
             'trim' => true,
             'empty_data' => '',
-            'label' => new TranslatableMessage('forms.slot_type.label.label_pattern'),
+            'label' => new TranslatableMessage('forms.proposal_type.label.label_pattern'),
             'attr' => [
                 'maxlength' => Entity\Proposal::MAX_LABEL_LENGTH,
             ],
-        ]);
-
-        $builder->add('maxVotes', Type\IntegerType::class, [
-            'required' => false,
-            'label' => new TranslatableMessage('forms.proposal_type.max_votes.label'),
-            'attr' => [
-                'min' => 1,
-                'placeholder' => new TranslatableMessage('forms.proposal_type.max_votes.placeholder'),
-                'style' => 'width: 80px;',
-            ],
-            'help' => new TranslatableMessage('forms.proposal_type.max_votes.help'),
         ]);
     }
 

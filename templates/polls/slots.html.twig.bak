@@ -63,9 +63,9 @@
                                         {# NEU: Das Limit-Feld direkt neben oder unter dem Slot #}
                                         {{ form_widget(proposal.maxVotes, {
                                             'attr': {
-                                                'placeholder': 'forms.proposal_type.max_votes.placeholder'|trans,
+                                                'placeholder': 'Limit',
                                                 'style': 'width: 80px;',
-                                                'title': 'forms.proposal_type.max_votes.slot_title'|trans
+                                                'title': 'Maximal erlaubte Stimmen für diesen Slot'
                                             }
                                          }) }}
 
@@ -112,7 +112,7 @@
             {% if date.proposals.vars.prototype.maxVotes is defined %}
                 {{ form_widget(date.proposals.vars.prototype.maxVotes, {
                     'attr': {
-                        'placeholder': 'forms.proposal_type.max_votes.placeholder'|trans,
+                        'placeholder': 'Limit',
                         'style': 'width: 80px;'
                     }
                 }) }}
@@ -141,22 +141,9 @@
                     </div>
                 </fieldset>
             {% endfor %}
-            {# Buttons für "Zurück" und "Weiter" #}
+
             {{ include('polls/_flow_actions.html.twig', { step: 'slots' }) }}
-            {# KORREKTUR: Wir rendern das CSRF-Token explizit. 
-                Das verhindert den "Ungültiges CSRF-Token" Fehler, 
-                auch wenn render_rest auf false steht.
-            #}
-            {% if form._token is defined %}
-                {{ form_widget(form._token) }}
-            {% endif %}
-            {#
-                render_rest: false sorgt dafür, dass Symfony nicht
-                versucht, irgendwelche "vergessenen" Felder am Ende
-                wild in das Layout zu klatschen.
-                vorher: {{ form_end(form) }}
-            #}
-            {{ form_end(form, {'render_rest': false}) }}
+        {{ form_end(form) }}
 
         {{ include('polls/_slots_applier_modal.html.twig') }}
     </div>

@@ -317,27 +317,22 @@ html[dir="rtl"] .proposals-table__sticky-cell {
     text-align: right;
 }
 
-.proposals-table .proposals-table__sum-line th,
-.proposals-table .proposals-table__sum-line td {
-    --table-border-color: var(--color-grey5);
+.proposals-table thead th,
+.proposals-table thead td {
+    position: sticky;
+    top: 0;
+    z-index: 2;
 
-    background-color: var(--color-primary4);
-    padding-top: var(--space-smaller);
-    padding-bottom: var(--space-smaller);
+    background-color: var(--color-grey1);
 }
 
-.proposals-table .proposals-table__yours-section {
-    --table-border-color: var(--color-primary5);
+.proposals-table thead .proposals-table__sticky-cell {
+    z-index: 3;
 }
 
-.proposals-table .proposals-table__yours-section th,
-.proposals-table .proposals-table__yours-section td {
-    background-color: var(--color-primary3);
-}
-
-.proposals-table .proposals-table__author,
-.proposals-table .proposals-table__sum {
-    padding: var(--space-small) var(--space-smaller);
+/* Make sure that the scrollbox shadow doesn't pass over the authors column. */
+.scrollbox:has(> .proposals-table-container)::before {
+    left: 152px;
 }
 
 @media screen and (min-width: 768px) {

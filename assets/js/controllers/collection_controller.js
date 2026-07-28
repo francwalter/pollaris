@@ -104,15 +104,10 @@ export default class extends Controller {
     }
 
     refreshLabels () {
-        const items = this.containerTarget.querySelectorAll('[data-item="element"]');
-        items.forEach((item, index) => {
-            // Update only the first label of each item with the correct number.
-            const label = item.querySelector('label');
-
-            if (!label) {
-                return;
-            }
-
+        const labels = this.containerTarget.querySelectorAll('label');
+        let counter = 0;
+        labels.forEach((label) => {
+            // Update the labels with the correct number.
             let labelPattern = label.dataset.labelPattern;
 
             if (!labelPattern) {
@@ -122,7 +117,10 @@ export default class extends Controller {
                 label.dataset.labelPattern = labelPattern;
             }
 
-            label.innerHTML = labelPattern.replace(/__number__/, index + 1);
+            if (labelPattern.includes('__number__')) {
+                counter++;
+                label.innerHTML = labelPattern.replace(/__number__/, counter);
+            }
         });
     }
 }

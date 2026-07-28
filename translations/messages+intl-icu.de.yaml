@@ -319,19 +319,12 @@ polls.votes.yes.count: '{count} Ja'
 polls.votes.yours: Ihre Stimme
 preferences.edit.title: Ihre Einstellungen
 admin.polls.created_at: Erstellt am
-polls.summary.admin_access.sent_by_email: Dieser Link wurde Ihnen auch per 
-  E-Mail zugesandt.
-polls.summary.admin_access.title: Privater Administrations-Link
-polls.summary.admin_access.will_send_by_email: Dieser Link wird Ihnen auch per 
-  E-Mail zugesandt.
-polls.summary.admin_link.remember.description: Wenn Sie die Option „Den Link in 
-  diesem Browser merken“ aktivieren, wird diese Umfrage auf diesem Gerät 
-  gespeichert. So können Sie sie später über denselben Browser wiederfinden, um 
-  sie anzuzeigen oder zu ändern. Aus Gründen der Vertraulichkeit sollten Sie 
-  diese Option nicht aktivieren, wenn Sie dieses Gerät mit anderen Personen 
-  gemeinsam nutzen.
-polls.summary.admin_link.remember.information: Informationen
-base.edit: Bearbeiten
-polls.edit_vote_mode.any: Jeder Teilnehmende kann jede Stimme ändern
-polls.summary.settings.edit_vote_mode.any: Jeder Teilnehmende kann jede Stimme 
-  ändern.
+forms.proposal_type.max_votes.label: 'Max. Teilnehmer (optional)'
+forms.proposal_type.max_votes.placeholder: Unbegrenzt
+forms.proposal_type.max_votes.help: 'Leer lassen, um das globale Limit der Umfrage zu nutzen.'
+forms.proposal_type.max_votes.slot_title: 'Maximal erlaubte Stimmen für diesen Termin'
+polls.proposals.max_votes.full: Voll
+polls.proposals.max_votes.all_taken: 'Alle Plätze vergeben'
+polls.proposals.max_votes.slots_remaining: '{count, plural, one {Noch 1 Platz verfügbar} other {Noch # Plätze verfügbar}}'
+polls.proposals.max_votes.slots_free: '{count, plural, one {1 Platz frei} other {# Plätze frei}}'
+polls.proposals.max_votes.availability: 'Verfügbarkeit:'

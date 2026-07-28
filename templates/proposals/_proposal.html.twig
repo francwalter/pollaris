@@ -3,6 +3,20 @@
  # Copyright 2024-2026 Marien Fressinaud
  # SPDX-License-Identifier: AGPL-3.0-or-later
  #}
+ {# 
+ToDo: fcw: 2026-03-10: 
+- "Dienst", "Dienste", "Voll" usw noch lokalisieren, Beispiel dazu in:
+    templates/polls/_summary.html.twig:
+    {{ 'polls.summary.settings.is_disable_maybe' | trans }}
+    Sprachdatei deutsch:
+    translations/messages+intl-icu.de.yaml
+- In der Listenansicht: Bei Bedarf und Nein Stimmen nicht kategorisch ausblenden (s.u.), 
+    sondern an die Einstellung in den Abstimmungsoptionen von Deaktiviere Bei Bedarf Stimmen und Standard Nein knüpfen:
+        Deaktiviere bei Bedarf: wenn aktiviert, Bei Bedarf komplett ausblenden, sonst nur bei 0 ausblenden
+        Wenn keine Antwort gegeben wird, standardmäßig mit Nein stimmen: wenn aktiviert, Nein NICHT ausblenden, sonst nur bei 0 ausblenden
+ 
+ #}
+
 
 <fieldset class="panel panel--white panel--rounded panel--proposal flow">
     <div>
@@ -35,8 +49,8 @@
                 {% if canViewResults(poll) and isPreferred %}
                     <span class="col--size3 col--noshrink votes__label text--success text--bold">
                         {{ 'polls.votes.yes.count' | trans({ count: countYes }) }}
-
-                        {{ icon('star') }}
+                        {# fcw: 2026-03-10: hier wird der beste Vorschlag mit einem Sternchen versehen, braucht man nicht #}
+                        {# {{ icon('star') }} #}
 
                         <span class="sr-only">
                             {{ 'polls.proposals.best' | trans }}
@@ -63,6 +77,9 @@
                 {% endif %}
             </li>
 
+            {# fcw: 2026-03-10: bei Bedarf und Nein Stimmen nicht anzeigen #}
+
+{# 
             <li class="cols cols--gap-small votes">
                 <span class="col--size3 col--noshrink votes__label">
                     {{ 'polls.votes.maybe.count' | trans({ count: countMaybe }) }}
@@ -101,7 +118,9 @@
                         —
                     </span>
                 {% endif %}
-            </li>
+            </li> 
+#}
+            {# Ende bei Bedarf und Nein Stimmen nicht anzeigen #}
         </ul>
     {% endif %}
 </fieldset>

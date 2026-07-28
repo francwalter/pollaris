@@ -115,6 +115,7 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
         cascade: ['persist'],
         orphanRemoval: true,
     )]
+    #[ORM\OrderBy(['createdAt' => 'ASC'])]
     #[Assert\Valid]
     private Collections\Collection $proposals;
 
