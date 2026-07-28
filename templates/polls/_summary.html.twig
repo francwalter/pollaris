@@ -29,36 +29,30 @@
 
             <button
                 type="button"
-                class="button--primary"
-                data-copy-to-clipboard-target="button"
-                data-action="copy-to-clipboard#copy"
+                class="button--icon"
+                data-controller="modal-opener"
+                data-action="modal-opener#copy"
+                data-modal-opener-selector-value="#modal-local-storage-details"
             >
-                {{ 'base.copy' | trans }}
-            </button>
-        </div>
-    </div>
+                {{ icon('question') }}
 
-    <div>
-        <input
-            type="checkbox"
-            id="remember_poll_admin"
-            data-controller="storage"
-            data-action="storage#sync"
-            data-storage-namespace-value="polls"
-            data-storage-key-value="{{ poll.id }}"
-            data-storage-entry-value="{{ {
-                title: poll.title,
-                type: poll.type,
-                date: poll.createdAt | dateIso,
-                author: poll.authorName,
-                pollUrl: url('poll', { slug: poll.slug }),
-                adminUrl: url('poll admin', { id: poll.id, token: poll.adminToken }),
-            } | json_encode }}"
-        >
-        <label for="remember_poll_admin">
-            {{ 'polls.summary.admin_link.remember' | trans }}
-            {{ icon('thumbtack') }}
-        </label>
+                <span class="sr-only">
+                    {{ 'polls.summary.admin_link.remember.information' | trans }}
+                </span>
+            </button>
+
+            <template id="modal-local-storage-details">
+                <div class="flow flow--large">
+                    <h1 id="modal-title">
+                        {{ 'polls.summary.admin_link.remember' | trans }}
+                    </h1>
+
+                    <p>
+                        {{ 'polls.summary.admin_link.remember.description' | trans }}
+                    </p>
+                </div>
+            </template>
+        </div>
     </div>
 </div>
 
@@ -122,21 +116,23 @@
 
         <div class="panel__separator"></div>
 
-        <a class="button button--menuitem" href="{{ path('edit poll', { id: poll.id, token: poll.adminToken }) }}">
-            {{ icon('pen-to-square') }}
-            {{ 'polls.summary.edit' | trans }}
-        </a>
+        <div class="cols cols--center cols--gap">
+            <a class="button button--menuitem col--size6" href="{{ path('edit poll', { id: poll.id, token: poll.adminToken }) }}">
+                {{ icon('pen-to-square') }}
+                {{ 'polls.summary.edit' | trans }}
+            </a>
 
-        <button
-            type="button"
-            class="button button--menuitem"
-            data-controller="modal-opener"
-            data-action="modal-opener#fetch"
-            data-modal-opener-selector-value="{{ path('delete poll', { id: poll.id, token: poll.adminToken }) }}"
-        >
-            {{ icon('trash') }}
-            {{ 'polls.summary.delete_poll' | trans }}
-        </button>
+            <button
+                type="button"
+                class="button button--danger col--size6"
+                data-controller="modal-opener"
+                data-action="modal-opener#fetch"
+                data-modal-opener-selector-value="{{ path('delete poll', { id: poll.id, token: poll.adminToken }) }}"
+            >
+                {{ icon('trash') }}
+                {{ 'polls.summary.delete_poll' | trans }}
+            </button>
+        </div>
     </div>
 </div>
 
@@ -228,6 +224,8 @@
             <li>
                 {% if poll.editVoteMode == 'own' %}
                     {{ 'polls.summary.settings.edit_vote_mode.own' | trans }}
+                {% elseif poll.editVoteMode == 'any' %}
+                    {{ 'polls.summary.settings.edit_vote_mode.any' | trans }}
                 {% else %}
                     {{ 'polls.summary.settings.edit_vote_mode.no' | trans }}
                 {% endif %}

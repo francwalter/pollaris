@@ -104,6 +104,7 @@ forms.preferences.color_scheme.light: Chiaro
 forms.preferences.locale.label: Lingua
 forms.previous: Precedente
 forms.proposal_type.label.label_pattern: Proposta __number__
+forms.proposal_type.max_members.label: Max. partecipanti
 forms.search_polls_form.email.help: Ti invieremo i link ai sondaggi che hai 
   creato.
 forms.search_polls_form.email.label: Il tuo indirizzo email

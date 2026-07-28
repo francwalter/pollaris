@@ -18,7 +18,7 @@
 {% block body %}
     {% set preferredChoices = poll.preferredChoices %}
 
-    <div class="flow flow--larger">
+    <div id="mainFlow" class="flow flow--larger">
         <div class="wrapper wrapper--small wrapper--center flow flow--larger">
             {% for message in app.flashes('success') %}
                 {% if message == 'vote.created' %}
@@ -161,7 +161,7 @@
                         voteAuthor: myVote.authorName,
                         voteDate: myVote.createdAt | dateIso,
                         voteUrl: url('edit vote', { slug: poll.slug, id: myVote.id, _fragment: 'poll' }),
-                        canEditVote: canEditVote(poll, ignoreAdminAccess: true),
+                        canEditVote: canEditVotes(poll, ignoreAdminAccess: true),
                     } | json_encode }}"
                 ></div>
             {% endif %}
@@ -219,9 +219,9 @@
                              # as the admin can change the edit vote mode. The
                              # value from the localStorage is only used on the
                              # /my page #}
-                            {% if canEditVote(poll, ignoreAdminAccess: true) %}
+                            {% if canEditVotes(poll, ignoreAdminAccess: true) %}
                                 <a href="__vote_url__" class="button button--ghost button--smaller">
-                                    {{ 'polls.show.my_votes.edit' | trans }}
+                                    {{ 'base.edit' | trans }}
                                 </a>
                             {% endif %}
 
@@ -252,15 +252,16 @@
 
         <div
             id="poll"
-            class="flow"
+            class="poll flow"
             data-controller="poll-view"
+            data-action="resize@window->poll-view#setPollWidth"
             aria-live="polite"
         >
-            <div class="wrapper wrapper--small wrapper--center flow">
+            <div class="poll-toolbar flow">
                 <div class="cols cols--always cols--center cols--gap-small">
                     <h2 class="col--extend text--primary">{{ 'polls.show.poll' | trans }}</h2>
 
-                    <div class="no-print">
+                    <div class="poll-toolbar__actions  no-print">
                         <button
                             class="button button--small"
                             data-poll-view-target="listButton"
@@ -289,7 +290,7 @@
             </div>
 
             {% if voteForm %}
-                {{ form_start(voteForm, { attr: { class: 'flow' } }) }}
+                {{ form_start(voteForm) }}
                     {{ form_errors(voteForm) }}
 
 					{# fcw: 2026-03-08: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
@@ -316,22 +317,37 @@
                     <div class="wrapper wrapper--small wrapper--center flow no-print">
                         <div class="cols cols--always cols--gap cols--center">
                             {% if onEditPage %}
-                                <a
-                                    class="button"
-                                    href="{{ path('poll', { slug: poll.slug }) }}"
+                                <a class="button"
+                                   href="{{ path('poll', { slug: poll.slug }) }}"
                                 >
                                     {{ 'forms.cancel' | trans }}
                                 </a>
                             {% endif %}
 
-                            <div class="col--extend"></div>
+                            <div class="poll-submit-wrapper__actions__inner">
+                                <p
+                                    id="vote-help"
+                                    data-form-vote-validation-target="voteHelp"
+                                    class="poll-submit-indication"
+                                >
+                                    {{- 'forms.vote_form.required_choice' | trans -}}
+                                </p>
 
-                            {{ form_row(voteForm.submit) }}
+                                {{ form_row(voteForm.submit) }}
+                            </div>
                         </div>
+                    </div>
+
+                    <div data-poll-view-target="listView">
+                        {{ include('proposals/_list.html.twig') }}
+                    </div>
+
+                    <div data-poll-view-target="tableView">
+                        {{ include('proposals/_table.html.twig') }}
                     </div>
                 {{ form_end(voteForm) }}
             {% else %}
-                <div class="wrapper wrapper--small wrapper--center" data-poll-view-target="listView">
+                <div data-poll-view-target="listView">
                     {{ include('proposals/_list.html.twig') }}
                 </div>
 
