@@ -115,6 +115,17 @@
                         </td>
                     {% endfor %}
                 </tr>
+                <tr class="no-print">
+                    <td colspan="100">
+                        <div class="panel panel--primary panel--rounded flow show_author">
+                            {{ form_row(voteForm.authorName) }}
+
+                            {% if voteForm.password is defined %}
+                                {{ form_row(voteForm.password) }}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
             {% endif %}
 
             {# fcw: 2026-03-10: Mit Gemini erweitert: https://gemini.google.com/app/8e6cc1756142038f #}
