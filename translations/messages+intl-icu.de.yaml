@@ -106,6 +106,7 @@ forms.preferences.color_scheme.light: Hell
 forms.preferences.locale.label: Sprache
 forms.previous: Zurück
 forms.proposal_type.label.label_pattern: Vorschlag __number__
+forms.proposal_type.max_members.label: Max. Teilnehmer
 forms.search_polls_form.email.help: Wir senden Ihnen die Links zu den von Ihnen 
   erstellten Umfragen zu.
 forms.search_polls_form.email.label: Ihre E-Mail-Adresse
@@ -235,7 +236,7 @@ polls.show.my_votes.date: (Stimme vom __date__)
 polls.show.my_votes.description: Ihre Stimmen werden in Ihrem Browser 
   gespeichert. Löschen Sie diese für mehr Privatsphäre, wenn Sie Ihren Browser 
   mit anderen Personen teilen.
-polls.show.my_votes.edit: Bearbeiten
+polls.show.my_votes.edit: '{authorName}’s Stimme bearbeiten'
 polls.show.my_votes.information: Informationen
 polls.show.my_votes.remove: Entfernen
 polls.show.my_votes.title: Meine Stimmen

@@ -105,6 +105,7 @@ forms.preferences.color_scheme.light: Clar
 forms.preferences.locale.label: Lenga
 forms.previous: Precedent
 forms.proposal_type.label.label_pattern: Proposicion __number__
+forms.proposal_type.max_members.label: Max. participant·as
 forms.search_polls_form.email.help: Vos mandarem los ligams dels sondatges 
   qu'avètz creats.
 forms.search_polls_form.email.label: Vòstra adreça electronica
@@ -225,7 +226,7 @@ polls.show.my_votes.date: (vòte del __date__)
 polls.show.my_votes.description: Vòstres vòtes son gardats dins vòstre 
   navegador. Per mai de confidencialitat, suprimissètz-los se partejatz aqueste 
   amb d'autras personas.
-polls.show.my_votes.edit: Modificar
+polls.show.my_votes.edit: Modificar lo vòt de {authorName}
 polls.show.my_votes.information: Informacions
 polls.show.my_votes.remove: Levar
 polls.show.my_votes.title: Mos vòtes

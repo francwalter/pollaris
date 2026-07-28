@@ -77,6 +77,9 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Date $date = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $maxMembers = null;
+
     public function __construct()
     {
         $this->label = '';
@@ -191,6 +194,18 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
     public function setDate(?Date $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getMaxMembers(): ?int
+    {
+        return $this->maxMembers;
+    }
+
+    public function setMaxMembers(?int $maxMembers): static
+    {
+        $this->maxMembers = $maxMembers;
 
         return $this;
     }
