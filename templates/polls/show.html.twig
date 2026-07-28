@@ -314,16 +314,6 @@
                     </div>
 
                     <div class="wrapper wrapper--small wrapper--center flow no-print">
-                        <div class="panel panel--primary panel--rounded flow show_author">
-                            {{ form_row(voteForm.authorName) }}
-
-                            {% if voteForm.password is defined %}
-                                {{ form_row(voteForm.password) }}
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="wrapper wrapper--small wrapper--center flow no-print">
                         <div class="cols cols--always cols--gap cols--center">
                             {% if onEditPage %}
                                 <a
