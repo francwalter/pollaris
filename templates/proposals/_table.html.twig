@@ -130,16 +130,18 @@
                             {% endif %}
 
                             {% if shouldRenderSubmit %}
-                                <div class="poll-submit-wrapper__actions__inner">
-                                    <p
-                                        id="vote-help"
-                                        data-form-vote-validation-target="voteHelp"
-                                        class="poll-submit-indication"
-                                    >
-                                        {{- 'forms.vote_form.required_choice' | trans -}}
-                                    </p>
+                                <div class="poll-submit-wrapper__actions">
+                                    <div class="poll-submit-wrapper__actions__inner">
+                                        <p
+                                            id="vote-help"
+                                            data-form-vote-validation-target="voteHelp"
+                                            class="poll-submit-indication"
+                                        >
+                                            {{- 'forms.vote_form.required_choice' | trans -}}
+                                        </p>
 
-                                    {{ form_row(voteForm.submit) }}
+                                        {{ form_row(voteForm.submit) }}
+                                    </div>
                                 </div>
                             {% endif %}
                         </td>
