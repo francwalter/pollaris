@@ -86,12 +86,15 @@
                             </th>
                         {% endfor %}
                     {% endfor %}
+
+                    <th class="text--center user-total-yes" style="width: 50px;">
+                        {{ 'polls.votes.sum'|trans }}
+                    </th>
                 </tr>
             {% endif %}
             </thead>
 
             <tbody>
-            {# Name field directly under yes/maybe/no row #}
             {% if voteForm %}
                 <tr class="no-print">
                     <th class="proposals-table__sticky-cell">
@@ -107,25 +110,22 @@
                     <td class="text--center user-total-yes"></td>
                 </tr>
 
-                <tr class="no-print">
-                    <td colspan="100">
-                        <div class="panel panel--primary panel--rounded flow show_author">
-                            {# 2026-07-29: fcw: https://github.com/copilot/c/25868a40-4db1-4f95-9e3d-1d2c65707ee6 #}
-                            {# {{ form_row(voteForm.authorName) }} #}
+                {% set showAuthorRow = (not voteForm.authorName.vars.rendered) or (voteForm.password is defined and not voteForm.password.vars.rendered) %}
+                {% if showAuthorRow %}
+                    <tr class="no-print">
+                        <td colspan="100">
+                            <div class="panel panel--primary panel--rounded flow show_author">
+                                {% if not voteForm.authorName.vars.rendered %}
+                                    {{ form_row(voteForm.authorName) }}
+                                {% endif %}
 
-            <label for="vote_authorName">{{ 'polls.votes.author_name'|trans }}</label>
-            <input
-                id="vote_authorName"
-                name="{{ voteForm.authorName.vars.full_name }}"
-                value="{{ voteForm.authorName.vars.value|default('') }}"
-                type="text"
-            />
-            {{ form_errors(voteForm.authorName) }}
-
-
-                        </div>
-                    </td>
-                </tr>
+                                {% if voteForm.password is defined and not voteForm.password.vars.rendered %}
+                                    {{ form_row(voteForm.password) }}
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endif %}
 
             {% set totalYes = 0 %}
