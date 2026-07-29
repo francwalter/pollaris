@@ -110,8 +110,8 @@
                     <td class="text--center user-total-yes"></td>
                 </tr>
 
-                {% set showAuthorRow = (not voteForm.authorName.vars.rendered) or (voteForm.password is defined and not voteForm.password.vars.rendered) %}
-                {% if showAuthorRow %}
+                {% set shouldRenderAuthorFields = (not voteForm.authorName.vars.rendered) or (voteForm.password is defined and not voteForm.password.vars.rendered) %}
+                {% if shouldRenderAuthorFields %}
                     <tr class="no-print">
                         <td colspan="100">
                             <div class="panel panel--primary panel--rounded flow show_author">
