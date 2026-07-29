@@ -323,18 +323,6 @@
                                     {{ 'forms.cancel' | trans }}
                                 </a>
                             {% endif %}
-
-                            <div class="poll-submit-wrapper__actions__inner">
-                                <p
-                                    id="vote-help"
-                                    data-form-vote-validation-target="voteHelp"
-                                    class="poll-submit-indication"
-                                >
-                                    {{- 'forms.vote_form.required_choice' | trans -}}
-                                </p>
-
-                                {{ form_row(voteForm.submit) }}
-                            </div>
                         </div>
                     </div>
 

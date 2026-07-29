@@ -124,6 +124,34 @@
                                 {% if shouldRenderPassword %}
                                     {{ form_row(voteForm.password) }}
                                 {% endif %}
+
+                                <div class="poll-submit-wrapper__actions__inner">
+                                    <p
+                                        id="vote-help"
+                                        data-form-vote-validation-target="voteHelp"
+                                        class="poll-submit-indication"
+                                    >
+                                        {{- 'forms.vote_form.required_choice' | trans -}}
+                                    </p>
+
+                                    {{ form_row(voteForm.submit) }}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="no-print">
+                        <td colspan="{{ tableColumnsCount }}">
+                            <div class="poll-submit-wrapper__actions__inner">
+                                <p
+                                    id="vote-help"
+                                    data-form-vote-validation-target="voteHelp"
+                                    class="poll-submit-indication"
+                                >
+                                    {{- 'forms.vote_form.required_choice' | trans -}}
+                                </p>
+
+                                {{ form_row(voteForm.submit) }}
                             </div>
                         </td>
                     </tr>
