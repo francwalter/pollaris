@@ -96,6 +96,7 @@
 
             <tbody>
             {% if voteForm %}
+                {% set tableColumnsCount = proposals|length + 2 %}
                 <tr class="no-print">
                     <th class="proposals-table__sticky-cell">
                         <div class="proposals-table__author proposals-table__author--new">
@@ -114,7 +115,7 @@
                 {% set shouldRenderPassword = voteForm.password is defined and not voteForm.password.vars.rendered %}
                 {% if shouldRenderAuthorName or shouldRenderPassword %}
                     <tr class="no-print">
-                        <td colspan="100">
+                        <td colspan="{{ tableColumnsCount }}">
                             <div class="panel panel--primary panel--rounded flow show_author">
                                 {% if shouldRenderAuthorName %}
                                     {{ form_row(voteForm.authorName) }}
