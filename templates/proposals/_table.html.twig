@@ -117,29 +117,31 @@
                 {% if shouldRenderAuthorName or shouldRenderPassword or shouldRenderSubmit %}
                     <tr class="no-print">
                         <td colspan="{{ tableColumnsCount }}">
-                            <div class="panel panel--primary panel--rounded flow show_author">
-                                {% if shouldRenderAuthorName %}
-                                    {{ form_row(voteForm.authorName) }}
-                                {% endif %}
+                            {% if shouldRenderAuthorName or shouldRenderPassword %}
+                                <div class="panel panel--primary panel--rounded flow show_author">
+                                    {% if shouldRenderAuthorName %}
+                                        {{ form_row(voteForm.authorName) }}
+                                    {% endif %}
 
-                                {% if shouldRenderPassword %}
-                                    {{ form_row(voteForm.password) }}
-                                {% endif %}
+                                    {% if shouldRenderPassword %}
+                                        {{ form_row(voteForm.password) }}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
 
-                                {% if shouldRenderSubmit %}
-                                    <div class="poll-submit-wrapper__actions__inner">
-                                        <p
-                                            id="vote-help"
-                                            data-form-vote-validation-target="voteHelp"
-                                            class="poll-submit-indication"
-                                        >
-                                            {{- 'forms.vote_form.required_choice' | trans -}}
-                                        </p>
+                            {% if shouldRenderSubmit %}
+                                <div class="poll-submit-wrapper__actions__inner">
+                                    <p
+                                        id="vote-help"
+                                        data-form-vote-validation-target="voteHelp"
+                                        class="poll-submit-indication"
+                                    >
+                                        {{- 'forms.vote_form.required_choice' | trans -}}
+                                    </p>
 
-                                        {{ form_row(voteForm.submit) }}
-                                    </div>
-                                {% endif %}
-                            </div>
+                                    {{ form_row(voteForm.submit) }}
+                                </div>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endif %}
