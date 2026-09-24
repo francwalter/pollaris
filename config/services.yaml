@@ -37,7 +37,9 @@ when@dev:
 
         App\Twig\AssetExtension:
             arguments:
-                - "dev_assets"
+# fcw: 2026-09-24: Gemini: https://gemini.google.com/app/e646a655586cfeac 
+# css und js wird so nicht gefunden, weil der Ordner dev_assets nicht existiert, vorher: - "dev_assets"
+                - "assets"
 
 when@test:
     services:

@@ -111,9 +111,9 @@
                     <td class="text--center user-total-yes"></td>
                 </tr>
 
-                {% set shouldRenderAuthorName = not voteForm.authorName.vars.rendered %}
+				{% set shouldRenderAuthorName = true %}
                 {% set shouldRenderPassword = voteForm.password is defined and not voteForm.password.vars.rendered %}
-                {% set shouldRenderSubmit = not voteForm.submit.vars.rendered %}
+                {% set shouldRenderSubmit = true %}
                 {% if shouldRenderAuthorName or shouldRenderPassword or shouldRenderSubmit %}
                     <tr class="no-print">
                         <td colspan="{{ tableColumnsCount }}">
@@ -201,7 +201,7 @@
                     {% for proposal in proposals %}
                         {% set countYes = proposal.countAnswers('yes') %}
                         {% set countMaybe = proposal.countAnswers('maybe') %}
-                        {% set isPreferred = proposal.id in preferredChoices %}
+                        {% set isPreferred = proposal in preferredChoices %}
 
                         <td class="text--center{% if isPreferred %} text--success text--bold{% endif %}">
                             {{ 'polls.votes.yes.count_alt' | trans({ count: countYes }) }}
